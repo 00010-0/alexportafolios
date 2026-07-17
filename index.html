@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexander Molz — 1:1 Personal Training</title>
+<meta name="description" content="Exklusives 1:1 Personal Training mit Alexander Molz. Transformation, Kraft, Mindset.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0d;
+  --bg2:#121216;
+  --ink:#f5f4f2;
+  --muted:#9a9aa2;
+  --accent:#ff4d1c;
+  --accent2:#ffd21f;
+  --line:rgba(255,255,255,.09);
+  --font-display:'Anton',sans-serif;
+  --font-body:'Archivo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:var(--accent);color:#fff}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--font-body);
+  overflow-x:hidden;line-height:1.6;
+  cursor:none;
+}
+@media (hover:none), (pointer:coarse){ body{cursor:auto} .cursor,.cursor-dot{display:none!important} }
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;cursor:none}
+button{cursor:none}
+@media (hover:none), (pointer:coarse){ a,button{cursor:auto} }
+
+/* ---------- Preloader ---------- */
+.preloader{
+  position:fixed;inset:0;z-index:9999;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+  transition:transform .9s cubic-bezier(.76,0,.24,1);
+}
+.preloader.done{transform:translateY(-100%)}
+.preloader__name{font-family:var(--font-display);font-size:clamp(2rem,6vw,4rem);letter-spacing:.04em;overflow:hidden}
+.preloader__name span{display:inline-block;transform:translateY(110%);animation:riseUp .8s cubic-bezier(.22,1,.36,1) forwards}
+.preloader__count{font-size:.85rem;color:var(--muted);letter-spacing:.35em;font-weight:600}
+.preloader__bar{width:min(320px,60vw);height:2px;background:var(--line);overflow:hidden}
+.preloader__bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s ease}
+@keyframes riseUp{to{transform:translateY(0)}}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot{
+  position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+}
+.cursor{
+  position:fixed;top:0;left:0;width:38px;height:38px;border-radius:50%;
+  border:1.5px solid rgba(255,77,28,.65);pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:width .25s ease,height .25s ease,background .25s ease,border-color .25s ease;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;font-weight:700;letter-spacing:.1em;color:#fff;
+}
+.cursor.is-hover{width:64px;height:64px;background:rgba(255,77,28,.14);border-color:var(--accent)}
+.cursor.is-view{width:84px;height:84px;background:var(--accent);border-color:var(--accent)}
+.cursor .cursor-label{opacity:0;transition:opacity .2s ease}
+.cursor.is-view .cursor-label{opacity:1}
+
+/* ---------- Progress + nav ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:1001}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,4vw,56px);
+  transition:background .4s ease,padding .4s ease,border-color .4s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.is-scrolled{background:rgba(11,11,13,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:12px clamp(20px,4vw,56px);border-color:var(--line)}
+.nav__logo{font-family:var(--font-display);font-size:1.25rem;letter-spacing:.06em}
+.nav__logo em{color:var(--accent);font-style:normal}
+.nav__links{display:flex;gap:clamp(14px,2.5vw,34px);list-style:none}
+.nav__links a{position:relative;font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--accent);transition:width .3s cubic-bezier(.22,1,.36,1)}
+.nav__links a:hover{color:var(--ink)}
+.nav__links a:hover::after{width:100%}
+.nav__cta{
+  font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:12px 22px;border:1.5px solid var(--accent);color:var(--ink);
+  position:relative;overflow:hidden;transition:color .35s;background:transparent;font-family:var(--font-body);
+}
+.nav__cta::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:-1}
+.nav__cta:hover::before{transform:translateY(0)}
+@media(max-width:760px){.nav__links{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding-bottom:0}
+.hero__bg{position:absolute;inset:-12% 0;z-index:0}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:saturate(1.05) contrast(1.08);will-change:transform}
+.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.45) 0%,rgba(11,11,13,.15) 45%,rgba(11,11,13,.92) 88%,var(--bg) 100%)}
+.hero__fallback{position:absolute;inset:0;background:
+  radial-gradient(60% 50% at 70% 30%, rgba(255,77,28,.28), transparent 60%),
+  radial-gradient(40% 40% at 25% 70%, rgba(255,210,31,.12), transparent 60%),
+  linear-gradient(160deg,#141419,#0b0b0d)}
+.hero__content{position:relative;z-index:2;padding:0 clamp(20px,4vw,56px) 0}
+.hero__kicker{display:flex;align-items:center;gap:14px;font-size:.8rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2);margin-bottom:14px}
+.hero__kicker::before{content:"";width:44px;height:2px;background:var(--accent)}
+.hero__title{
+  font-family:var(--font-display);
+  font-size:clamp(3.2rem,12.5vw,11.5rem);
+  line-height:.92;letter-spacing:.01em;text-transform:uppercase;
+}
+.hero__title .line{display:block;overflow:hidden}
+.hero__title .line > span{display:inline-block;transform:translateY(115%)}
+.hero__title .stroke{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.hero__sub{max-width:520px;color:var(--muted);font-size:clamp(.95rem,1.4vw,1.1rem);margin:22px 0 34px;opacity:0;transform:translateY(24px)}
+.hero__actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px;opacity:0;transform:translateY(24px)}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-body);font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 30px;position:relative;overflow:hidden;border:none;
+}
+.btn--primary{background:var(--accent);color:#fff}
+.btn--primary::before{content:"";position:absolute;inset:0;background:#111;transform:translateY(101%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.btn--primary:hover::before{transform:translateY(0)}
+.btn--primary span{position:relative;z-index:1}
+.btn--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);transition:border-color .3s}
+.btn--ghost:hover{border-color:var(--accent)}
+.hero__scroll{position:absolute;right:clamp(20px,4vw,56px);bottom:120px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;writing-mode:vertical-rl}
+.hero__scroll i{width:2px;height:56px;background:var(--line);position:relative;overflow:hidden}
+.hero__scroll i::after{content:"";position:absolute;top:-50%;left:0;width:100%;height:50%;background:var(--accent);animation:scrollHint 1.8s ease-in-out infinite}
+@keyframes scrollHint{0%{top:-50%}100%{top:110%}}
+@media(max-width:760px){.hero__scroll{display:none}}
+
+/* ---------- Marquee ---------- */
+.marquee{
+  position:relative;z-index:3;
+  background:var(--accent);color:#0b0b0d;
+  padding:14px 0;overflow:hidden;white-space:nowrap;
+  transform:rotate(-1.2deg) scale(1.02);transform-origin:center;
+  border-top:3px solid #000;border-bottom:3px solid #000;
+}
+.marquee--alt{background:var(--accent2);transform:rotate(1.2deg) scale(1.02);margin-top:-8px}
+.marquee__track{display:inline-flex;gap:48px;padding-right:48px;animation:marquee 22s linear infinite;will-change:transform}
+.marquee--alt .marquee__track{animation-direction:reverse;animation-duration:28s}
+.marquee span{font-family:var(--font-display);font-size:clamp(1rem,2.2vw,1.6rem);letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:48px}
+.marquee span::after{content:"✦";font-size:.8em}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- Shared section ---------- */
+.section{padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);position:relative}
+.section__head{margin-bottom:clamp(40px,6vw,80px)}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:.75rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.eyebrow::before{content:"";width:36px;height:2px;background:var(--accent)}
+.h2{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,5rem);line-height:1;text-transform:uppercase;letter-spacing:.01em}
+.h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.reveal.is-in{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:.12s}
+.reveal[data-delay="2"]{transition-delay:.24s}
+.reveal[data-delay="3"]{transition-delay:.36s}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border:1px solid var(--line)}
+.stat{padding:clamp(28px,4vw,48px);border-right:1px solid var(--line);position:relative;overflow:hidden;transition:background .4s}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--bg2)}
+.stat__num{font-family:var(--font-display);font-size:clamp(2.6rem,5vw,4.2rem);color:var(--ink);line-height:1}
+.stat__num b{color:var(--accent);font-weight:400}
+.stat__label{margin-top:10px;color:var(--muted);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+@media(max-width:760px){.stat{border-right:none;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:none}}
+
+/* ---------- About ---------- */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,90px);align-items:center}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+.about__media{position:relative;aspect-ratio:4/5;overflow:hidden}
+.about__media img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);will-change:transform;filter:saturate(1.02)}
+.about__media::before{content:"";position:absolute;inset:0;border:1px solid var(--line);z-index:2;pointer-events:none}
+.about__media .about__fallback{position:absolute;inset:0;background:radial-gradient(70% 60% at 30% 30%,rgba(255,77,28,.25),transparent 65%),linear-gradient(200deg,#17171c,#0d0d10);display:flex;align-items:center;justify-content:center}
+.about__fallback span{font-family:var(--font-display);font-size:5rem;color:rgba(255,255,255,.07);text-transform:uppercase}
+.about__tag{position:absolute;left:18px;bottom:18px;z-index:3;background:var(--accent);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:10px 16px}
+.about__body p{color:var(--muted);margin-bottom:18px;font-size:1.02rem}
+.about__body strong{color:var(--ink)}
+.about__list{list-style:none;margin:26px 0 34px;display:grid;gap:12px}
+.about__list li{display:flex;gap:14px;align-items:baseline;font-weight:600}
+.about__list li::before{content:"0" counter(item);counter-increment:item;font-family:var(--font-display);color:var(--accent);font-size:1.05rem;min-width:32px}
+.about__list{counter-reset:item}
+
+/* ---------- Services ---------- */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.card{
+  background:var(--bg2);border:1px solid var(--line);padding:clamp(28px,3.5vw,44px);
+  position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s;
+  transform-style:preserve-3d;will-change:transform;
+}
+.card::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.card:hover{border-color:rgba(255,77,28,.4)}
+.card:hover::before{transform:scaleX(1)}
+.card__glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,77,28,.16),transparent 65%);pointer-events:none;opacity:0;transition:opacity .3s;transform:translate(-50%,-50%)}
+.card:hover .card__glow{opacity:1}
+.card__num{font-family:var(--font-display);font-size:1rem;color:var(--muted);letter-spacing:.2em}
+.card__icon{font-size:2rem;margin:18px 0 14px}
+.card h3{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+.card p{color:var(--muted);font-size:.95rem;margin-bottom:22px}
+.card__feats{list-style:none;display:grid;gap:8px;font-size:.88rem}
+.card__feats li{display:flex;gap:10px;align-items:baseline}
+.card__feats li::before{content:"→";color:var(--accent);font-weight:700}
+
+/* ---------- Testimonials ---------- */
+.testi{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.testi__viewport{overflow:hidden;position:relative}
+.testi__track{display:flex;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.testi__slide{min-width:100%;padding:0 4px}
+.testi__quote{font-size:clamp(1.2rem,2.6vw,1.9rem);font-weight:500;line-height:1.45;max-width:900px}
+.testi__quote::before{content:"“";font-family:var(--font-display);color:var(--accent);font-size:1.4em;line-height:0;margin-right:6px}
+.testi__who{margin-top:28px;display:flex;align-items:center;gap:16px}
+.testi__avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);color:#0b0b0d;font-size:1.1rem;flex:none}
+.testi__who b{display:block;font-size:.95rem}
+.testi__who small{color:var(--muted);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.testi__nav{display:flex;gap:12px;margin-top:40px;align-items:center}
+.testi__btn{width:52px;height:52px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font-size:1.1rem;transition:border-color .3s,background .3s;font-family:var(--font-body)}
+.testi__btn:hover{border-color:var(--accent);background:rgba(255,77,28,.1)}
+.testi__dots{display:flex;gap:8px;margin-left:12px}
+.testi__dot{width:26px;height:3px;background:var(--line);transition:background .3s}
+.testi__dot.is-on{background:var(--accent)}
+
+/* ---------- Pricing ---------- */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:stretch}
+.price{
+  border:1px solid var(--line);padding:clamp(30px,3.5vw,46px);background:var(--bg2);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s,box-shadow .35s;
+}
+.price:hover{transform:translateY(-8px);border-color:rgba(255,77,28,.45);box-shadow:0 24px 60px -30px rgba(255,77,28,.35)}
+.price--hot{border-color:var(--accent)}
+.price__badge{position:absolute;top:0;right:0;background:var(--accent);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:8px 14px}
+.price h3{font-family:var(--font-display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.price__amount{font-family:var(--font-display);font-size:clamp(2.8rem,4.5vw,3.8rem);margin:14px 0 4px;line-height:1}
+.price__amount small{font-family:var(--font-body);font-size:.85rem;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.price__desc{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.price__feats{list-style:none;display:grid;gap:11px;font-size:.9rem;margin-bottom:32px}
+.price__feats li{display:flex;gap:10px;align-items:baseline}
+.price__feats li::before{content:"✓";color:var(--accent);font-weight:800}
+.price .btn{margin-top:auto;justify-content:center}
+
+/* ---------- Contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px)}
+@media(max-width:900px){.contact{grid-template-columns:1fr}}
+.contact__info p{color:var(--muted);margin:18px 0 30px;max-width:440px}
+.contact__row{display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);font-weight:600;transition:padding-left .3s}
+.contact__row:hover{padding-left:10px}
+.contact__row span:first-child{color:var(--accent);font-size:1.1rem;min-width:28px}
+.form{display:grid;gap:0}
+.field{position:relative;border-bottom:1px solid var(--line);padding:26px 0 12px}
+.field input,.field textarea,.field select{
+  width:100%;background:transparent;border:none;outline:none;color:var(--ink);
+  font-family:var(--font-body);font-size:1rem;padding:4px 0;resize:none;
+}
+.field select{appearance:none;cursor:none}
+.field select option{background:var(--bg2);color:var(--ink)}
+.field label{
+  position:absolute;left:0;top:30px;color:var(--muted);font-size:1rem;pointer-events:none;
+  transition:top .3s cubic-bezier(.22,1,.36,1),font-size .3s,color .3s,letter-spacing .3s;
+}
+.field.is-active label{top:4px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.field::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--accent);transition:width .45s cubic-bezier(.22,1,.36,1)}
+.field.is-active::after{width:100%}
+.form .btn{margin-top:36px;justify-self:start}
+.form__ok{display:none;margin-top:20px;padding:16px 20px;border:1px solid var(--accent);color:var(--ink);font-size:.9rem}
+.form__ok.is-on{display:block;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- Footer ---------- */
+.footer{border-top:1px solid var(--line);padding:36px clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:.8rem}
+.footer a{color:var(--ink);font-weight:600;transition:color .3s}
+.footer a:hover{color:var(--accent)}
+.footer__big{font-family:var(--font-display);font-size:clamp(3rem,14vw,12rem);text-transform:uppercase;line-height:.95;text-align:center;padding:clamp(40px,7vw,110px) 20px 0;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.16);user-select:none;transition:color .6s,-webkit-text-stroke-color .6s}
+.footer__big:hover{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+
+/* back to top */
+.top-btn{position:fixed;right:26px;bottom:26px;width:52px;height:52px;border:1.5px solid var(--line);background:rgba(11,11,13,.8);backdrop-filter:blur(8px);color:var(--ink);z-index:900;opacity:0;pointer-events:none;transition:opacity .35s,border-color .3s;font-size:1.05rem;font-family:var(--font-body)}
+.top-btn.is-on{opacity:1;pointer-events:auto}
+.top-btn:hover{border-color:var(--accent)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader">
+  <div class="preloader__name"><span>ALEXANDER&nbsp;MOLZ</span></div>
+  <div class="preloader__bar"><i id="plBar"></i></div>
+  <div class="preloader__count" id="plCount">0%</div>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor" id="cursor"><span class="cursor-label">GO</span></div>
+<div class="progress" id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__logo">ALEXANDER <em>MOLZ</em></a>
+  <ul class="nav__links">
+    <li><a href="#ueber">Über mich</a></li>
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#stimmen">Stimmen</a></li>
+    <li><a href="#preise">Preise</a></li>
+  </ul>
+  <a href="#kontakt" class="nav__cta" data-magnetic>Termin sichern</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero__bg" data-parallax="0.25">
+    <div class="hero__fallback"></div>
+    <img src="assets/hero.jpg" alt="Alexander Molz beim Training" onerror="this.style.display='none'">
+  </div>
+  <div class="hero__content">
+    <p class="hero__kicker">1:1 Personal Training · Köln</p>
+    <h1 class="hero__title">
+      <span class="line"><span>DEIN KÖRPER.</span></span>
+      <span class="line"><span class="stroke">DEINE REGELN.</span></span>
+      <span class="line"><span>MEIN PLAN.</span></span>
+    </h1>
+    <p class="hero__sub" id="heroSub">Exklusives 1:1 Coaching mit Alexander Molz — Schauspieler, Athlet und Gründer von ONE Supplements. Kein Schema F. Ein Plan, der zu deinem Leben passt.</p>
+    <div class="hero__actions" id="heroActions">
+      <a href="#kontakt" class="btn btn--primary" data-magnetic><span>Kostenloses Erstgespräch</span></a>
+      <a href="#leistungen" class="btn btn--ghost" data-magnetic>Leistungen ansehen</a>
+    </div>
+  </div>
+  <div class="hero__scroll">Scroll<i></i></div>
+  <div class="marquee">
+    <div class="marquee__track" aria-hidden="true">
+      <span>1:1 Coaching</span><span>Krafttraining</span><span>Ernährung</span><span>Mindset</span><span>Transformation</span>
+      <span>1:1 Coaching</span><span>Krafttraining</span><span>Ernährung</span><span>Mindset</span><span>Transformation</span>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="stats reveal">
+    <div class="stat"><div class="stat__num"><span data-count="168" data-suffix="K">0</span><b>+</b></div><div class="stat__label">Follower Community</div></div>
+    <div class="stat"><div class="stat__num"><span data-count="250" data-suffix="">0</span><b>+</b></div><div class="stat__label">Betreute Klienten</div></div>
+    <div class="stat"><div class="stat__num"><span data-count="8" data-suffix="">0</span><b>+</b></div><div class="stat__label">Jahre Erfahrung</div></div>
+    <div class="stat"><div class="stat__num"><span data-count="100" data-suffix="%">0</span><b></b></div><div class="stat__label">Commitment</div></div>
+  </div>
+</section>
+
+<section class="section" id="ueber">
+  <div class="about">
+    <div class="about__media reveal">
+      <div class="about__fallback"><span>AM</span></div>
+      <img src="assets/about.jpg" alt="Alexander Molz Portrait" data-parallax-img onerror="this.style.display='none'">
+      <span class="about__tag">Coach · Athlet · Unternehmer</span>
+    </div>
+    <div class="about__body">
+      <p class="eyebrow reveal">Über mich</p>
+      <h2 class="h2 reveal" data-delay="1">MEHR ALS <em>NUR</em> TRAINING</h2>
+      <p class="reveal" data-delay="2" style="margin-top:24px">Du kennst mich vielleicht von <strong>Köln 50667</strong> oder von Instagram — aber vor der Kamera und im Gym gilt dasselbe Prinzip: <strong>Disziplin schlägt Talent.</strong></p>
+      <p class="reveal" data-delay="2">Als Gründer von <strong>ONE Supplements</strong> und Coach mit über 8 Jahren Trainingserfahrung weiß ich, dass nachhaltige Transformation nicht im Trainingsplan beginnt, sondern im Kopf. Genau da setze ich an.</p>
+      <ul class="about__list reveal" data-delay="3">
+        <li>Individueller Trainings- &amp; Ernährungsplan — kein Template</li>
+        <li>Direkter Draht zu mir, 7 Tage die Woche</li>
+        <li>Mindset-Coaching für Ergebnisse, die bleiben</li>
+      </ul>
+      <a href="#kontakt" class="btn btn--primary reveal" data-delay="3" data-magnetic><span>Lass uns starten</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee marquee--alt">
+  <div class="marquee__track" aria-hidden="true">
+    <span>No Excuses</span><span>Train Hard</span><span>Stay Focused</span><span>Level Up</span><span>Be Yourself</span>
+    <span>No Excuses</span><span>Train Hard</span><span>Stay Focused</span><span>Level Up</span><span>Be Yourself</span>
+  </div>
+</div>
+
+<section class="section" id="leistungen">
+  <div class="section__head">
+    <p class="eyebrow reveal">Leistungen</p>
+    <h2 class="h2 reveal" data-delay="1">1:1 <em>COACHING</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="card reveal" data-tilt><div class="card__glow"></div>
+      <span class="card__num">/01</span>
+      <div class="card__icon">🏋️</div>
+      <h3>Personal Training</h3>
+      <p>Trainiere direkt mit mir — jede Session wird auf dein Level, deine Ziele und deinen Alltag zugeschnitten.</p>
+      <ul class="card__feats">
+        <li>1:1 Sessions vor Ort oder online</li>
+        <li>Technik-Analyse &amp; Korrektur</li>
+        <li>Progressiver Plan, wöchentlich angepasst</li>
+      </ul>
+    </div>
+    <div class="card reveal" data-tilt data-delay="1"><div class="card__glow"></div>
+      <span class="card__num">/02</span>
+      <div class="card__icon">🥗</div>
+      <h3>Ernährungscoaching</h3>
+      <p>Kein Verzicht-Terror. Eine Ernährung, die zu deinem Leben passt und Ergebnisse liefert.</p>
+      <ul class="card__feats">
+        <li>Individueller Ernährungsplan</li>
+        <li>Supplement-Beratung vom Gründer</li>
+        <li>Check-ins &amp; Anpassungen jede Woche</li>
+      </ul>
+    </div>
+    <div class="card reveal" data-tilt data-delay="2"><div class="card__glow"></div>
+      <span class="card__num">/03</span>
+      <div class="card__icon">🧠</div>
+      <h3>Mindset &amp; Lifestyle</h3>
+      <p>Der Körper folgt dem Kopf. Wir bauen Routinen und eine Mentalität, die dich langfristig trägt.</p>
+      <ul class="card__feats">
+        <li>Ziel-Setting &amp; Accountability</li>
+        <li>Schlaf-, Stress- &amp; Recovery-Strategien</li>
+        <li>Direkter WhatsApp-Support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section testi" id="stimmen">
+  <div class="section__head">
+    <p class="eyebrow reveal">Stimmen</p>
+    <h2 class="h2 reveal" data-delay="1">DAS SAGEN <em>KLIENTEN</em></h2>
+  </div>
+  <div class="testi__viewport reveal">
+    <div class="testi__track" id="testiTrack">
+      <div class="testi__slide">
+        <p class="testi__quote">Alex hat mir in 6 Monaten mehr beigebracht als 5 Jahre allein im Gym. Sein Plan war der erste, den ich wirklich durchgezogen habe — weil er zu meinem Leben passt.</p>
+        <div class="testi__who"><div class="testi__avatar">MK</div><div><b>Marco K.</b><small>12 kg Muskelaufbau · 10 Monate</small></div></div>
+      </div>
+      <div class="testi__slide">
+        <p class="testi__quote">Ich wollte nie „Bodybuilderin" werden — ich wollte mich stark fühlen. Alex hat das sofort verstanden. Das 1:1 Coaching war die beste Investition in mich selbst.</p>
+        <div class="testi__who"><div class="testi__avatar">SL</div><div><b>Sarah L.</b><small>-14 kg · 8 Monate</small></div></div>
+      </div>
+      <div class="testi__slide">
+        <p class="testi__quote">Der Unterschied ist die Betreuung. Wenn ich ein Tief hatte, war Alex da. Nicht nur Coach, sondern echter Motivator. 100% Weiterempfehlung.</p>
+        <div class="testi__who"><div class="testi__avatar">DB</div><div><b>Daniel B.</b><small>Wettkampfvorbereitung · 1 Jahr</small></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="testi__nav reveal" data-delay="1">
+    <button class="testi__btn" id="testiPrev" aria-label="Vorheriges">←</button>
+    <button class="testi__btn" id="testiNext" aria-label="Nächstes">→</button>
+    <div class="testi__dots" id="testiDots"></div>
+  </div>
+</section>
+
+<section class="section" id="preise">
+  <div class="section__head">
+    <p class="eyebrow reveal">Preise</p>
+    <h2 class="h2 reveal" data-delay="1">DEIN <em>INVESTMENT</em></h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price reveal">
+      <h3>Kickstart</h3>
+      <div class="price__amount">299€<small> / Monat</small></div>
+      <p class="price__desc">Der Einstieg für alle, die strukturiert loslegen wollen.</p>
+      <ul class="price__feats">
+        <li>Individueller Trainingsplan</li>
+        <li>Ernährungsguide</li>
+        <li>2 Check-ins pro Monat</li>
+        <li>App-Zugang &amp; Übungsvideos</li>
+      </ul>
+      <a href="#kontakt" class="btn btn--ghost" data-magnetic>Anfragen</a>
+    </div>
+    <div class="price price--hot reveal" data-delay="1">
+      <span class="price__badge">Beliebt</span>
+      <h3>1:1 Coaching</h3>
+      <div class="price__amount">599€<small> / Monat</small></div>
+      <p class="price__desc">Volle Betreuung — Training, Ernährung, Mindset. Mein Kernprogramm.</p>
+      <ul class="price__feats">
+        <li>Alles aus Kickstart</li>
+        <li>4 Personal-Sessions pro Monat</li>
+        <li>Wöchentliche Plan-Anpassung</li>
+        <li>Direkter WhatsApp-Support</li>
+        <li>Supplement-Protokoll</li>
+      </ul>
+      <a href="#kontakt" class="btn btn--primary" data-magnetic><span>Anfragen</span></a>
+    </div>
+    <div class="price reveal" data-delay="2">
+      <h3>Elite</h3>
+      <div class="price__amount">999€<small> / Monat</small></div>
+      <p class="price__desc">Maximale Intensität für maximale Ergebnisse.</p>
+      <ul class="price__feats">
+        <li>Alles aus 1:1 Coaching</li>
+        <li>8 Personal-Sessions pro Monat</li>
+        <li>24/7 Priority-Support</li>
+        <li>Foto-Shooting zum Abschluss</li>
+      </ul>
+      <a href="#kontakt" class="btn btn--ghost" data-magnetic>Anfragen</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="kontakt">
+  <div class="section__head">
+    <p class="eyebrow reveal">Kontakt</p>
+    <h2 class="h2 reveal" data-delay="1">BEREIT? <em>LOS GEHT'S</em></h2>
+  </div>
+  <div class="contact">
+    <div class="contact__info reveal">
+      <p>Sichere dir dein kostenloses Erstgespräch. Wir sprechen über deine Ziele, deinen Alltag und den Plan, der dich ans Ziel bringt. Unverbindlich, ehrlich, direkt.</p>
+      <a class="contact__row" href="https://www.instagram.com/alexandermolz_official" target="_blank" rel="noopener"><span>◆</span> @alexandermolz_official</a>
+      <a class="contact__row" href="mailto:coaching@alexandermolz.de"><span>✉</span> coaching@alexandermolz.de</a>
+      <div class="contact__row"><span>📍</span> Köln, Deutschland · Online weltweit</div>
+    </div>
+    <form class="form reveal" data-delay="1" id="contactForm" novalidate>
+      <div class="field"><label for="fName">Dein Name</label><input id="fName" type="text" required></div>
+      <div class="field"><label for="fMail">E-Mail</label><input id="fMail" type="email" required></div>
+      <div class="field"><label for="fGoal">Dein Ziel</label>
+        <select id="fGoal" required>
+          <option value="" selected hidden></option>
+          <option>Muskelaufbau</option>
+          <option>Fettabbau</option>
+          <option>Athletik &amp; Performance</option>
+          <option>Wettkampfvorbereitung</option>
+          <option>Allgemeine Fitness</option>
+        </select>
+      </div>
+      <div class="field"><label for="fMsg">Deine Nachricht</label><textarea id="fMsg" rows="3"></textarea></div>
+      <button type="submit" class="btn btn--primary" data-magnetic><span>Erstgespräch anfragen →</span></button>
+      <div class="form__ok" id="formOk">✓ Danke! Deine Anfrage ist raus — Alex meldet sich innerhalb von 24 h bei dir.</div>
+    </form>
+  </div>
+</section>
+
+<div class="footer__big" title="Nach oben" onclick="window.scrollTo({top:0,behavior:'smooth'})">TRAIN&nbsp;HARD</div>
+<footer class="footer">
+  <span>© 2026 Alexander Molz — 1:1 Personal Training</span>
+  <span><a href="https://www.instagram.com/alexandermolz_official" target="_blank" rel="noopener">Instagram</a> · <a href="mailto:coaching@alexandermolz.de">E-Mail</a></span>
+</footer>
+<button class="top-btn" id="topBtn" aria-label="Nach oben">↑</button>
+
+<script>
+(function(){
+"use strict";
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Preloader ---------- */
+const preloader = document.getElementById('preloader');
+const plBar = document.getElementById('plBar');
+const plCount = document.getElementById('plCount');
+let p = 0;
+const plTimer = setInterval(()=>{
+  p += Math.random()*14+6;
+  if(p >= 100){ p = 100; clearInterval(plTimer); setTimeout(finishLoad, 250); }
+  plBar.style.width = p+'%';
+  plCount.textContent = Math.floor(p)+'%';
+}, 90);
+function finishLoad(){
+  preloader.classList.add('done');
+  heroIntro();
+  setTimeout(()=>preloader.remove(), 1000);
+}
+
+/* ---------- Hero intro (staggered text) ---------- */
+function heroIntro(){
+  document.querySelectorAll('.hero__title .line > span').forEach((el,i)=>{
+    el.style.transition = 'transform 1s cubic-bezier(.22,1,.36,1) '+(0.1+i*0.13)+'s';
+    requestAnimationFrame(()=>{ el.style.transform = 'translateY(0)'; });
+  });
+  [['heroSub',0.55],['heroActions',0.7]].forEach(([id,d])=>{
+    const el = document.getElementById(id);
+    el.style.transition = 'opacity .9s ease '+d+'s, transform .9s cubic-bezier(.22,1,.36,1) '+d+'s';
+    requestAnimationFrame(()=>{ el.style.opacity = 1; el.style.transform = 'none'; });
+  });
+}
+
+/* ---------- Custom cursor ---------- */
+const cursor = document.getElementById('cursor');
+const dot = document.getElementById('cursorDot');
+let mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+addEventListener('mousemove', e=>{
+  mx = e.clientX; my = e.clientY;
+  dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+});
+(function loopCursor(){
+  cx += (mx-cx)*0.16; cy += (my-cy)*0.16;
+  cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+  requestAnimationFrame(loopCursor);
+})();
+document.querySelectorAll('a,button,select,.testi__btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('is-hover'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('is-hover'));
+});
+document.querySelectorAll('.about__media,.hero__bg').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('is-view'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('is-view'));
+});
+
+/* ---------- Magnetic buttons ---------- */
+if(!prefersReduced) document.querySelectorAll('[data-magnetic]').forEach(el=>{
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const x = e.clientX-r.left-r.width/2, y = e.clientY-r.top-r.height/2;
+    el.style.transform = `translate(${x*0.22}px,${y*0.28}px)`;
+  });
+  el.addEventListener('mouseleave', ()=>{
+    el.style.transition = 'transform .5s cubic-bezier(.22,1,.36,1)';
+    el.style.transform = '';
+    setTimeout(()=>el.style.transition='',500);
+  });
+});
+
+/* ---------- Scroll: progress, nav, parallax, top button ---------- */
+const progress = document.getElementById('progress');
+const nav = document.getElementById('nav');
+const topBtn = document.getElementById('topBtn');
+const heroBg = document.querySelector('[data-parallax]');
+const aboutImg = document.querySelector('[data-parallax-img]');
+let ticking = false;
+function onScroll(){
+  const y = scrollY;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progress.style.width = (y/max*100)+'%';
+  nav.classList.toggle('is-scrolled', y > 60);
+  topBtn.classList.toggle('is-on', y > innerHeight);
+  if(!prefersReduced){
+    if(heroBg && y < innerHeight*1.2) heroBg.style.transform = `translateY(${y*0.25}px)`;
+    if(aboutImg){
+      const r = aboutImg.closest('.about__media').getBoundingClientRect();
+      if(r.top < innerHeight && r.bottom > 0){
+        const prog = (innerHeight - r.top)/(innerHeight + r.height);
+        aboutImg.style.transform = `scale(1.15) translateY(${(prog-0.5)*-40}px)`;
+      }
+    }
+  }
+  ticking = false;
+}
+addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+onScroll();
+topBtn.addEventListener('click', ()=>scrollTo({top:0,behavior:'smooth'}));
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- Animated counters ---------- */
+const counterIO = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    counterIO.unobserve(entry.target);
+    const el = entry.target, target = +el.dataset.count, suffix = el.dataset.suffix||'';
+    const dur = 1600, t0 = performance.now();
+    (function tick(t){
+      const k = Math.min((t-t0)/dur, 1);
+      const ease = 1-Math.pow(1-k, 3);
+      el.textContent = Math.round(target*ease)+suffix;
+      if(k < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-count]').forEach(el=>counterIO.observe(el));
+
+/* ---------- 3D tilt cards + glow ---------- */
+if(!prefersReduced) document.querySelectorAll('[data-tilt]').forEach(card=>{
+  const glow = card.querySelector('.card__glow');
+  card.addEventListener('mousemove', e=>{
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX-r.left)/r.width, py = (e.clientY-r.top)/r.height;
+    card.style.transform = `perspective(900px) rotateX(${(py-0.5)*-7}deg) rotateY(${(px-0.5)*7}deg) translateY(-4px)`;
+    if(glow){ glow.style.left = (px*100)+'%'; glow.style.top = (py*100)+'%'; }
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform = ''; });
+});
+
+/* ---------- Testimonial slider ---------- */
+const track = document.getElementById('testiTrack');
+const slides = track.children.length;
+const dotsWrap = document.getElementById('testiDots');
+let idx = 0, auto;
+for(let i=0;i<slides;i++){
+  const d = document.createElement('span');
+  d.className = 'testi__dot'+(i===0?' is-on':'');
+  d.addEventListener('click',()=>go(i));
+  dotsWrap.appendChild(d);
+}
+function go(i){
+  idx = (i+slides)%slides;
+  track.style.transform = `translateX(-${idx*100}%)`;
+  dotsWrap.querySelectorAll('.testi__dot').forEach((d,j)=>d.classList.toggle('is-on', j===idx));
+  restartAuto();
+}
+function restartAuto(){ clearInterval(auto); auto = setInterval(()=>go(idx+1), 6000); }
+document.getElementById('testiPrev').addEventListener('click',()=>go(idx-1));
+document.getElementById('testiNext').addEventListener('click',()=>go(idx+1));
+restartAuto();
+/* swipe support */
+let touchX = null;
+track.addEventListener('touchstart', e=>touchX = e.touches[0].clientX, {passive:true});
+track.addEventListener('touchend', e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx) > 40) go(idx + (dx<0?1:-1));
+  touchX = null;
+}, {passive:true});
+
+/* ---------- Form: floating labels + fake submit ---------- */
+document.querySelectorAll('.field input,.field textarea,.field select').forEach(inp=>{
+  const field = inp.closest('.field');
+  const sync = ()=>field.classList.toggle('is-active', document.activeElement===inp || !!inp.value);
+  inp.addEventListener('focus',sync); inp.addEventListener('blur',sync);
+  inp.addEventListener('input',sync); inp.addEventListener('change',sync);
+});
+document.getElementById('contactForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const form = e.target;
+  let valid = true;
+  form.querySelectorAll('[required]').forEach(inp=>{
+    if(!inp.value){ valid = false; inp.closest('.field').style.borderBottomColor = 'var(--accent)'; }
+    else inp.closest('.field').style.borderBottomColor = '';
+  });
+  if(!valid) return;
+  document.getElementById('formOk').classList.add('is-on');
+  form.querySelector('button[type=submit]').style.display = 'none';
+});
+})();
+</script>
+</body>
+</html>
