@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f5f2ec">
+<meta name="theme-color" content="#1b1712">
 <title>Alexander Molz — 1:1 Personal Training</title>
 <meta name="description" content="Exklusives 1:1 Personal Training mit Alexander Molz. Transformation, Kraft, Mindset.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,9 @@
   --sans:'Instrument Sans',sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+a,button,input,textarea,select{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus:not(:focus-visible),a:focus:not(:focus-visible){outline:none}
 html{scroll-behavior:smooth}
 ::selection{background:var(--ink);color:var(--bg)}
 body{
@@ -460,6 +462,93 @@ body.menu-open .nav__burger i{background:var(--ink)!important}
   .footer__inner{justify-content:center;text-align:center}
   .testi__nav{margin-top:32px}
   .price__feats{justify-content:start}
+}
+
+/* ================= DARK SEAMLESS THEME (sin blancos) ================= */
+body{background:var(--ink);color:#f6f3ee}
+::selection{background:var(--accent);color:#fff}
+.preloader{background:var(--ink);color:#f6f3ee}
+.preloader__count{color:rgba(246,243,238,.55)}
+.preloader__bar{background:rgba(246,243,238,.15)}
+.preloader__bar i{background:#f6f3ee}
+.cursor-dot{background:#f6f3ee}
+.cursor{border-color:rgba(246,243,238,.5);color:var(--ink)}
+.cursor.is-hover{background:rgba(246,243,238,.08);border-color:#f6f3ee}
+.cursor.is-view{background:#f6f3ee;border-color:#f6f3ee}
+.nav__logo{color:#f6f3ee}
+.nav__logo em{color:#e59a5f}
+.nav__links a{color:rgba(246,243,238,.72)}
+.nav__links a:hover{color:#f6f3ee}
+.nav__cta{background:var(--bg);color:var(--ink)}
+.nav__cta:hover{color:#fff}
+.nav.is-scrolled{background:rgba(16,13,10,.8);border-color:rgba(246,243,238,.12)}
+.nav.is-scrolled .nav__logo{color:#f6f3ee}
+.nav.is-scrolled .nav__links a{color:rgba(246,243,238,.72)}
+.nav.is-scrolled .nav__links a:hover{color:#f6f3ee}
+.nav__burger{border-color:rgba(246,243,238,.5)!important}
+.nav__burger i{background:#f6f3ee!important}
+.menu{background:var(--ink)}
+body.menu-open .nav__logo{color:#f6f3ee!important}
+body.menu-open .nav__logo em{color:#e59a5f!important}
+body.menu-open .nav__burger{border-color:rgba(246,243,238,.5)!important}
+body.menu-open .nav__burger i{background:#f6f3ee!important}
+.hero__bg::after{background:linear-gradient(180deg,rgba(27,23,18,0) 0%,rgba(27,23,18,.5) 60%,var(--ink) 94%)}
+.marquee{background:var(--ink);border-color:rgba(246,243,238,.14)}
+.marquee span{color:#f6f3ee}
+.eyebrow{color:#e59a5f}
+.eyebrow::before,.eyebrow::after{background:rgba(246,243,238,.25)}
+.h2 em{color:#e59a5f}
+.stats{background:rgba(253,252,249,.04);border-color:rgba(246,243,238,.14)}
+.stat{border-color:rgba(246,243,238,.14)}
+.stat:hover{background:rgba(229,154,95,.07)}
+.stat__label{color:rgba(246,243,238,.55)}
+.about-dark{margin-top:clamp(70px,9vw,120px)}
+.about__bg::after{background:linear-gradient(180deg,var(--ink) 0%,rgba(27,23,18,0) 18%,rgba(27,23,18,0) 78%,var(--ink) 100%)}
+.testi.photo-sec{background:var(--ink)}
+.testi.photo-sec .photo-sec__bg::after{background:linear-gradient(180deg,var(--ink) 0%,rgba(27,23,18,0) 18%,rgba(27,23,18,0) 82%,var(--ink) 100%)}
+.testi__avatar{background:var(--bg);color:var(--ink)}
+.testi__who small{color:rgba(246,243,238,.6)}
+.testi__btn{border-color:rgba(246,243,238,.4);color:#f6f3ee}
+.testi__btn:hover{border-color:#f6f3ee;background:rgba(246,243,238,.1)}
+.testi__dot{background:rgba(246,243,238,.25)}
+.testi__dot.is-on{background:#e59a5f}
+.price{background:rgba(253,252,249,.05);border-color:rgba(246,243,238,.14)}
+.price:hover{border-color:rgba(229,154,95,.55);box-shadow:0 28px 64px -34px rgba(0,0,0,.6)}
+.price h3{color:rgba(246,243,238,.6)}
+.price__desc{color:rgba(246,243,238,.6)}
+.price__feats li::before{color:#e59a5f}
+.price--hot{background:var(--bg);color:var(--ink)}
+.price--hot h3,.price--hot .price__desc{color:rgba(27,23,18,.62)}
+.price--hot .price__feats li::before{color:var(--accent)}
+.price--hot .btn--ghost{color:var(--ink);border-color:rgba(27,23,18,.35)}
+.price--hot .btn--ghost:hover{border-color:var(--ink);background:rgba(27,23,18,.05)}
+.btn--primary{background:var(--bg);color:var(--ink)}
+.btn--primary span{transition:color .3s}
+.btn--primary:hover span{color:#fff}
+.price--hot .btn--primary{background:var(--ink);color:var(--bg)}
+.btn--ghost{color:#f6f3ee;border-color:rgba(246,243,238,.45)}
+.btn--ghost:hover{border-color:#f6f3ee;background:rgba(246,243,238,.08)}
+.band__bg::after{background:linear-gradient(180deg,var(--ink) 0%,rgba(27,23,18,0) 18%,rgba(27,23,18,0) 82%,var(--ink) 100%)}
+.contact__info p{color:rgba(246,243,238,.65)}
+.contact__row{border-color:rgba(246,243,238,.14)}
+.contact__row span:first-child{color:#e59a5f}
+.field{border-color:rgba(246,243,238,.2)}
+.field input,.field textarea,.field select{color:#f6f3ee}
+.field select option{background:#241f18;color:#f6f3ee}
+.field label{color:rgba(246,243,238,.5)}
+.field.is-active label{color:#e59a5f}
+.field::after{background:#e59a5f}
+.form__ok{border-color:#e59a5f;color:#f6f3ee}
+.footer{border-color:rgba(246,243,238,.12)}
+.footer__inner{color:rgba(246,243,238,.55)}
+.footer a{color:#f6f3ee}
+.footer a:hover{color:#e59a5f}
+.footer__big{-webkit-text-stroke:1px rgba(246,243,238,.3)}
+.footer__big:hover{color:#e59a5f;-webkit-text-stroke-color:#e59a5f}
+.top-btn{background:rgba(27,23,18,.75);border-color:rgba(246,243,238,.25);color:#f6f3ee}
+.top-btn:hover{border-color:#f6f3ee}
+@media(max-width:900px){
+  .photo-sec .card{background:rgba(24,20,15,.9)}
 }
 
 @media (prefers-reduced-motion:reduce){
